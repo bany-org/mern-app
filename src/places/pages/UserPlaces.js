@@ -11,7 +11,7 @@ const DUMMY_PLACES = [
     imageURL:
       "https://images.pexels.com/photos/2404949/pexels-photo-2404949.jpeg",
     address: "20 W 34th St, New York, NY 10001, Stany Zjednoczone",
-    locarion: {
+    location: {
       lat: 40.7484405,
       lng: -73.9878531,
     },
@@ -24,7 +24,7 @@ const DUMMY_PLACES = [
     imageURL:
       "https://images.pexels.com/photos/2404949/pexels-photo-2404949.jpeg",
     address: "20 W 34th St, New York, NY 10001, Stany Zjednoczone",
-    locarion: {
+    location: {
       lat: 40.7484405,
       lng: -73.9878531,
     },
