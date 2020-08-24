@@ -42,10 +42,10 @@ const UpdatePlace = () => {
         const fetchPlace = async () => {
             try {
                 const responseData = await sendRequest(
-                    `http://localhost:5000/api/places${placeId}`
+                    `http://localhost:5000/api/places/${placeId}`
                 );
-                setLoadedPlace(responseData.place);
 
+                setLoadedPlace(responseData.place);
                 setFormData(
                     {
                         title: {
@@ -60,8 +60,8 @@ const UpdatePlace = () => {
                     true
                 );
             } catch (error) {}
-            fetchPlace();
         };
+        fetchPlace();
     }, [sendRequest, placeId, setFormData]);
 
     if (isLoading) {
@@ -87,7 +87,7 @@ const UpdatePlace = () => {
 
         try {
             await sendRequest(
-                `http://localhost:5000/api/places${placeId}`,
+                `http://localhost:5000/api/places/${placeId}`,
                 "PATCH",
                 JSON.stringify({
                     title: formState.inputs.title.value,
@@ -95,6 +95,7 @@ const UpdatePlace = () => {
                 }),
                 {
                     "Content-Type": "application/json",
+                    Authorization: "Bearer " + auth.token,
                 }
             );
             history.push("/" + auth.userId + "/places");
@@ -116,7 +117,7 @@ const UpdatePlace = () => {
                         validators={[VALIDATOR_REQUIRE()]}
                         errorText="Please enter a valid title"
                         onInput={inputHandler}
-                        initialValue={loadedPlace.title.value}
+                        initialValue={loadedPlace.title}
                         initialValid={true}
                     />
                     <Input
@@ -126,7 +127,7 @@ const UpdatePlace = () => {
                         validators={[VALIDATOR_MINLENGTH(5)]}
                         errorText="Please enter a valid description (min. 5 characters)"
                         onInput={inputHandler}
-                        initialValue={loadedPlace.description.value}
+                        initialValue={loadedPlace.description}
                         initialValid={true}
                     />
                     <Button type="submit" disabled={!formState.isValid}>

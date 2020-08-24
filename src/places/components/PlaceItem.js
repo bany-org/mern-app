@@ -13,9 +13,9 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import "./PlaceItem.css";
 
 const PlaceItem = (props) => {
-    const { isLoading, error, clearError, sendRequest } = useHttpClient();
     const auth = useContext(AuthContext);
     const [showMap, setShowMap] = useState(false);
+    const { isLoading, error, clearError, sendRequest } = useHttpClient();
     const [showConfirmModal, setShowConfirmModal] = useState(false);
 
     const openMapHandler = () => setShowMap(true);
@@ -35,7 +35,11 @@ const PlaceItem = (props) => {
         try {
             await sendRequest(
                 `http://localhost:5000/api/places/${props.id}`,
-                "DELETE"
+                "DELETE",
+                null,
+                {
+                    Authorization: "Bearer " + auth.token,
+                }
             );
             props.onDelete(props.id);
         } catch (error) {}
@@ -81,7 +85,10 @@ const PlaceItem = (props) => {
                 <Card className="place-item__content">
                     {isLoading && <LoadingSpinner asOverlayMode />}
                     <div className="place-item__image">
-                        <img src={props.image} alt={props.title} />
+                        <img
+                            src={`http://localhost:5000/${props.image}`}
+                            alt={props.title}
+                        />
                     </div>
                     <div className="place-item__info">
                         <h2>{props.title}</h2>
